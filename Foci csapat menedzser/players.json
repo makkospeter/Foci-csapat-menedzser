@@ -1,0 +1,258 @@
+[
+  {
+    "Name": "Kiss Péter",
+    "Age": 24,
+    "BirthDate": "2001-02-14",
+    "Nationality": "Magyar",
+    "MarketValue": 1500000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Nagy László",
+    "Age": 27,
+    "BirthDate": "1998-08-09",
+    "Nationality": "Magyar",
+    "MarketValue": 1200000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Szabó Márton",
+    "Age": 22,
+    "BirthDate": "2003-01-18",
+    "Nationality": "Magyar",
+    "MarketValue": 950000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Tóth Gergő",
+    "Age": 29,
+    "BirthDate": "1996-04-02",
+    "Nationality": "Magyar",
+    "MarketValue": 2000000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Horváth Dávid",
+    "Age": 25,
+    "BirthDate": "2000-05-23",
+    "Nationality": "Magyar",
+    "MarketValue": 1100000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "John Smith",
+    "Age": 28,
+    "BirthDate": "1997-06-23",
+    "Nationality": "Angol",
+    "MarketValue": 3200000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Michael Brown",
+    "Age": 21,
+    "BirthDate": "2004-12-11",
+    "Nationality": "Angol",
+    "MarketValue": 850000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Anthony Green",
+    "Age": 30,
+    "BirthDate": "1995-02-01",
+    "Nationality": "Angol",
+    "MarketValue": 4000000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Marco Rossi",
+    "Age": 21,
+    "BirthDate": "2004-11-08",
+    "Nationality": "Olasz",
+    "MarketValue": 900000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Luca Bianchi",
+    "Age": 26,
+    "BirthDate": "1999-07-14",
+    "Nationality": "Olasz",
+    "MarketValue": 2300000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Giovanni Romano",
+    "Age": 23,
+    "BirthDate": "2002-03-17",
+    "Nationality": "Olasz",
+    "MarketValue": 1400000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Carlos Rodriguez",
+    "Age": 24,
+    "BirthDate": "2001-09-22",
+    "Nationality": "Spanyol",
+    "MarketValue": 2800000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Javier Gomez",
+    "Age": 27,
+    "BirthDate": "1998-05-30",
+    "Nationality": "Spanyol",
+    "MarketValue": 3300000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Sergio Morales",
+    "Age": 22,
+    "BirthDate": "2003-02-11",
+    "Nationality": "Spanyol",
+    "MarketValue": 1000000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Pierre Dubois",
+    "Age": 25,
+    "BirthDate": "2000-06-06",
+    "Nationality": "Francia",
+    "MarketValue": 2900000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Antoine Laurent",
+    "Age": 28,
+    "BirthDate": "1997-12-28",
+    "Nationality": "Francia",
+    "MarketValue": 3100000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Julien Martin",
+    "Age": 20,
+    "BirthDate": "2005-04-19",
+    "Nationality": "Francia",
+    "MarketValue": 750000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Ivan Petrov",
+    "Age": 24,
+    "BirthDate": "2001-10-10",
+    "Nationality": "Orosz",
+    "MarketValue": 1800000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Sergei Volkov",
+    "Age": 30,
+    "BirthDate": "1995-01-27",
+    "Nationality": "Orosz",
+    "MarketValue": 2500000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Dmitry Sokolov",
+    "Age": 22,
+    "BirthDate": "2003-03-06",
+    "Nationality": "Orosz",
+    "MarketValue": 950000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Nikola Jovanović",
+    "Age": 23,
+    "BirthDate": "2002-07-29",
+    "Nationality": "Szerb",
+    "MarketValue": 1500000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Marko Ilić",
+    "Age": 27,
+    "BirthDate": "1998-09-12",
+    "Nationality": "Szerb",
+    "MarketValue": 2400000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Stefan Petrović",
+    "Age": 21,
+    "BirthDate": "2004-05-01",
+    "Nationality": "Szerb",
+    "MarketValue": 800000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Takashi Yamamoto",
+    "Age": 26,
+    "BirthDate": "1999-03-25",
+    "Nationality": "Japán",
+    "MarketValue": 1700000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Kenji Watanabe",
+    "Age": 24,
+    "BirthDate": "2001-11-02",
+    "Nationality": "Japán",
+    "MarketValue": 1500000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Hiroshi Sato",
+    "Age": 20,
+    "BirthDate": "2005-01-15",
+    "Nationality": "Japán",
+    "MarketValue": 700000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Lucas Müller",
+    "Age": 29,
+    "BirthDate": "1996-08-14",
+    "Nationality": "Német",
+    "MarketValue": 3500000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Hans Schneider",
+    "Age": 31,
+    "BirthDate": "1994-05-21",
+    "Nationality": "Német",
+    "MarketValue": 3800000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Felix Bauer",
+    "Age": 23,
+    "BirthDate": "2002-10-08",
+    "Nationality": "Német",
+    "MarketValue": 1300000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Thiago Silva",
+    "Age": 28,
+    "BirthDate": "1997-02-20",
+    "Nationality": "Brazil",
+    "MarketValue": 3000000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Rafael Costa",
+    "Age": 22,
+    "BirthDate": "2003-06-09",
+    "Nationality": "Brazil",
+    "MarketValue": 950000,
+    "IsAvailable": false
+  },
+  {
+    "Name": "Eduardo Pereira",
+    "Age": 25,
+    "BirthDate": "2000-09-13",
+    "Nationality": "Brazil",
+    "MarketValue": 2100000,
+    "IsAvailable": false
+  }
+]
