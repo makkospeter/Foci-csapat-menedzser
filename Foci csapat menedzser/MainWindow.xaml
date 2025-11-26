@@ -1,12 +1,49 @@
 ﻿<Window x:Class="Foci_csapat_menedzser.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Foci_csapat_menedzser"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Foci Csapat Menedzser" Height="450" Width="800">
 
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="13.536"/>
+            <RowDefinition Height="12.424"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ListBox Name="PlayerList" Margin="5,5,5,5" SelectionChanged="PlayerList_SelectionChanged"
+                 Grid.Row="0" Height="200">
+            <ListBoxItem Content="Játékos 1"/>
+            <ListBoxItem Content="Játékos 2"/>
+            <ListBoxItem Content="Játékos 3"/>
+        </ListBox>
+
+        <TextBlock Text="Név:" Grid.Row="1" Margin="0,5,0,5" Grid.RowSpan="2"/>
+        <TextBox Name="NameBox" Margin="0,5,0,5" Grid.Row="3"/>
+
+        <TextBlock Text="Életkor:" Grid.Row="4" Margin="0,5,0,5"/>
+        <TextBox Name="AgeBox" Margin="0,5,0,5" Grid.Row="5"/>
+
+        <TextBlock Text="Születési idő:" Grid.Row="5" Margin="0,5,0,5"/>
+        <TextBox Name="BirthBox" Margin="0,5,0,5" Grid.Row="5"/>
+
+        <TextBlock Text="Nemzetiség:" Grid.Row="5" Margin="0,5,0,5"/>
+        <TextBox Name="NationBox" Margin="0,5,0,5" Grid.Row="5"/>
+
+        <TextBlock Text="Piaci érték (€):" Grid.Row="5" Margin="0,5,0,5"/>
+        <TextBox Name="ValueBox" Margin="0,5,0,5" Grid.Row="5"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Grid.Row="5">
+            <TextBlock Text="Játékképes:" VerticalAlignment="Center"/>
+            <CheckBox Name="AvailableBox" Margin="10 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="0,20,0,20" Grid.Row="5">
+            <Button Content="Mégse" Width="80" Margin="5" Click="Cancel_Click"/>
+            <Button Content="Módosít" Width="80" Margin="5" Click="Modify_Click"/>
+            <Button Content="OK" Width="80" Margin="5" Click="Ok_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
