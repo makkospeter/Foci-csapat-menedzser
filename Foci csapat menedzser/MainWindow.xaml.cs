@@ -54,5 +54,65 @@ namespace Foci_csapat_menedzser
             PlayerList.ItemsSource = players;
         }
 
+        void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Player p = (Player)PlayerList.SelectedItem;
+            if (p == null) return;
+
+            NameBox.Text = p.Name;
+            AgeBox.Text = p.Age.ToString();
+            BirthBox.Text = p.BirthDate;
+            NationBox.Text = p.Nationality;
+            ValueBox.Text = p.MarketValue.ToString();
+            AvailableBox.IsChecked = p.IsAvailable;
+        }
+
+        void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerList_SelectionChanged(null, null);
+        }
+
+        void Modify_Click(object sender, RoutedEventArgs e)
+        {
+            Player p = (Player)PlayerList.SelectedItem;
+            if (p == null) return;
+
+            p.Name = NameBox.Text;
+            p.Age = int.Parse(AgeBox.Text);
+            p.BirthDate = BirthBox.Text;
+            p.Nationality = NationBox.Text;
+            p.MarketValue = int.Parse(ValueBox.Text);
+            p.IsAvailable = AvailableBox.IsChecked == true;
+
+            PlayerList.Items.Refresh();
+        }
+
+        void Ok_Click(object sender, RoutedEventArgs e)
+        {
+            SaveJson();
+            MessageBox.Show("Változások mentve.");
+        }
+
+        void SaveJson()
+        {
+            string outText = "[\n";
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                Player p = (Player)players[i];
+                outText += "  {\n";
+                outText += $"    \"Name\": \"{p.Name}\",\n";
+                outText += $"    \"Age\": {p.Age},\n";
+                outText += $"    \"BirthDate\": \"{p.BirthDate}\",\n";
+                outText += $"    \"Nationality\": \"{p.Nationality}\",\n";
+                outText += $"    \"MarketValue\": {p.MarketValue},\n";
+                outText += $"    \"IsAvailable\": {(p.IsAvailable ? "true" : "false")}\n";
+                outText += (i == players.Count - 1) ? "  }\n" : "  },\n";
+            }
+
+            outText += "]";
+
+            File.WriteAllText(JsonFile, outText);
+        }
     }
 }
