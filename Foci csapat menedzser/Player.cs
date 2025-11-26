@@ -10,9 +10,9 @@ namespace Foci_csapat_menedzser
     {
         public string Name;
         public int Age;
-        public string BirthDate;
+        public DateTime BirthDate;
         public string Nationality;
         public int MarketValue;
-        public bool IsAvailable;
+        public Availability IsAvailable;
     }
 }
