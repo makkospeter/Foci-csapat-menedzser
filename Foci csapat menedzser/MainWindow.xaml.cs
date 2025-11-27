@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Text.Json;
 
 namespace Foci_csapat_menedzser
 {
     public partial class MainWindow : Window
     {
-        ArrayList players = new ArrayList();
-        string JsonFile = "players.json";
+        private List<Player> players = new List<Player>();
+        private const string JsonFile = "players.json";
 
         public MainWindow()
         {
@@ -17,102 +18,113 @@ namespace Foci_csapat_menedzser
             LoadPlayers();
         }
 
-        void LoadPlayers()
+        private void LoadPlayers()
         {
-            players.Clear();
-
-            string text = File.ReadAllText(JsonFile);
-            text = text.Replace("[", "").Replace("]", "");
-
-            string[] blocks = text.Split(new string[] { "}," }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string b in blocks)
+            try
             {
-                string cleaned = b.Replace("{", "").Replace("}", "").Trim();
-                string[] lines = cleaned.Split(',');
-
-                Player p = new Player();
-
-                foreach (string line in lines)
+                if (File.Exists(JsonFile))
                 {
-                    string[] kv = line.Split(':');
-                    string key = kv[0].Trim().Replace("\"", "");
-                    string val = kv[1].Trim().Replace("\"", "");
+                    string jsonString = File.ReadAllText(JsonFile);
+                    if (!string.IsNullOrWhiteSpace(jsonString))
+                    {
+                        var options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
 
-                    if (key == "Name") p.Name = val;
-                    if (key == "Age") p.Age = int.Parse(val);
-                    if (key == "BirthDate") p.BirthDate = val;
-                    if (key == "Nationality") p.Nationality = val;
-                    if (key == "MarketValue") p.MarketValue = int.Parse(val);
-                    if (key == "IsAvailable") p.IsAvailable = (val == "true");
+                        var playerArray = JsonSerializer.Deserialize<Player[]>(jsonString, options);
+                        if (playerArray != null)
+                        {
+                            players = new List<Player>(playerArray);
+                            PlayerList.ItemsSource = players;
+                        }
+                    }
                 }
-
-                players.Add(p);
+                else
+                {
+                    MessageBox.Show("A players.json fájl nem található!");
+                }
             }
-
-            PlayerList.ItemsSource = null;
-            PlayerList.ItemsSource = players;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba a játékosok betöltésekor: {ex.Message}");
+            }
         }
 
-        void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Player p = (Player)PlayerList.SelectedItem;
-            if (p == null) return;
-
-            NameBox.Text = p.Name;
-            AgeBox.Text = p.Age.ToString();
-            BirthBox.Text = p.BirthDate;
-            NationBox.Text = p.Nationality;
-            ValueBox.Text = p.MarketValue.ToString();
-            AvailableBox.IsChecked = p.IsAvailable;
+            if (PlayerList.SelectedItem is Player selectedPlayer)
+            {
+                NameBox.Text = selectedPlayer.Name;
+                AgeBox.Text = selectedPlayer.Age.ToString();
+                BirthBox.Text = selectedPlayer.BirthDate;
+                NationBox.Text = selectedPlayer.Nationality;
+                ValueBox.Text = selectedPlayer.MarketValue.ToString();
+                AvailableBox.IsChecked = selectedPlayer.IsAvailable;
+            }
         }
 
-        void Cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            // Visszaállítja az eredeti értékeket
             PlayerList_SelectionChanged(null, null);
         }
 
-        void Modify_Click(object sender, RoutedEventArgs e)
+        private void Modify_Click(object sender, RoutedEventArgs e)
         {
-            Player p = (Player)PlayerList.SelectedItem;
-            if (p == null) return;
-
-            p.Name = NameBox.Text;
-            p.Age = int.Parse(AgeBox.Text);
-            p.BirthDate = BirthBox.Text;
-            p.Nationality = NationBox.Text;
-            p.MarketValue = int.Parse(ValueBox.Text);
-            p.IsAvailable = AvailableBox.IsChecked == true;
-
-            PlayerList.Items.Refresh();
-        }
-
-        void Ok_Click(object sender, RoutedEventArgs e)
-        {
-            SaveJson();
-            MessageBox.Show("Változások mentve.");
-        }
-
-        void SaveJson()
-        {
-            string outText = "[\n";
-
-            for (int i = 0; i < players.Count; i++)
+            if (PlayerList.SelectedItem is Player selectedPlayer)
             {
-                Player p = (Player)players[i];
-                outText += "  {\n";
-                outText += $"    \"Name\": \"{p.Name}\",\n";
-                outText += $"    \"Age\": {p.Age},\n";
-                outText += $"    \"BirthDate\": \"{p.BirthDate}\",\n";
-                outText += $"    \"Nationality\": \"{p.Nationality}\",\n";
-                outText += $"    \"MarketValue\": {p.MarketValue},\n";
-                outText += $"    \"IsAvailable\": {(p.IsAvailable ? "true" : "false")}\n";
-                outText += (i == players.Count - 1) ? "  }\n" : "  },\n";
+                try
+                {
+                    // Adatok frissítése
+                    selectedPlayer.Name = NameBox.Text;
+                    selectedPlayer.Age = int.Parse(AgeBox.Text);
+                    selectedPlayer.BirthDate = BirthBox.Text;
+                    selectedPlayer.Nationality = NationBox.Text;
+                    selectedPlayer.MarketValue = int.Parse(ValueBox.Text);
+                    selectedPlayer.IsAvailable = AvailableBox.IsChecked ?? false;
+
+                    // Lista frissítése
+                    PlayerList.Items.Refresh();
+                    MessageBox.Show("Játékos adatai frissítve!");
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Kérlek, érvényes számokat adj meg az Életkor és Piaci érték mezőkben!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba történt: {ex.Message}");
+                }
             }
+            else
+            {
+                MessageBox.Show("Kérlek, válassz ki egy játékost!");
+            }
+        }
 
-            outText += "]";
+        private void Ok_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SavePlayers();
+                MessageBox.Show("Változások mentve!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba a mentéskor: {ex.Message}");
+            }
+        }
 
-            File.WriteAllText(JsonFile, outText);
+        private void SavePlayers()
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            string jsonString = JsonSerializer.Serialize(players, options);
+            File.WriteAllText(JsonFile, jsonString);
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Foci_csapat_menedzser
 {
     public class Player
     {
-        public string Name;
-        public int Age;
-        public DateTime BirthDate;
-        public string Nationality;
-        public int MarketValue;
-        public Availability IsAvailable;
+        public string Name { get; set; } = string.Empty;
+        public int Age { get; set; }
+        public string BirthDate { get; set; } = string.Empty;
+        public string Nationality { get; set; } = string.Empty;
+        public int MarketValue { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }
