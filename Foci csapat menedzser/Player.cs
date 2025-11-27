@@ -22,7 +22,6 @@ namespace Foci_csapat_menedzser
         public DateTime JoinedTeam { get; set; }
         public DateTime ContractEnd { get; set; }
 
-   
         public int Age
         {
             get
@@ -34,7 +33,6 @@ namespace Foci_csapat_menedzser
             }
         }
 
-        
         public string NationalitiesDisplay
         {
             get

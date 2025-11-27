@@ -22,17 +22,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-       
         <StackPanel Grid.Column="0">
             <TextBlock Text="Játékos Keret" FontWeight="Bold" FontSize="18" Margin="0,0,0,15"/>
 
-           
             <StackPanel Margin="0,0,0,10">
                 <TextBlock Text="Szűrők:" FontWeight="SemiBold" Margin="0,0,0,5"/>
                 <ComboBox x:Name="FilterComboBox" SelectionChanged="FilterComboBox_SelectionChanged">
                     <ComboBoxItem Content="Összes játékos" IsSelected="True"/>
                     <ComboBoxItem Content="Csak elérhetők"/>
                     <ComboBoxItem Content="Csak sérültek"/>
+                    <ComboBoxItem Content="Lejárt szerződések"/>
                 </ComboBox>
             </StackPanel>
 
@@ -65,7 +64,6 @@
             </ListBox>
         </StackPanel>
 
-      
         <ScrollViewer Grid.Column="1" Margin="20,0,0,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock Text="Játékos Adatlap" FontWeight="Bold" FontSize="20" Margin="0,0,0,20"/>
@@ -102,87 +100,80 @@
                     </Grid>
                 </Border>
 
-            
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    
                     <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                        <GroupBox Header="Személyes Adatok" FontWeight="SemiBold" Margin="0,0,0,15">
+                        <GroupBox Header="Szerződés Kezelése" FontWeight="SemiBold" Margin="0,0,0,15">
                             <StackPanel Margin="10">
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Nemzetiségek:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="NationalitiesText"/>
+                                    <TextBlock Text="Csatlakozás:" FontWeight="SemiBold" Width="120"/>
+                                    <DatePicker x:Name="JoinedTeamPicker" Width="150"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Születési dátum:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="BirthDateText"/>
+                                    <TextBlock Text="Szerződés vége:" FontWeight="SemiBold" Width="120"/>
+                                    <DatePicker x:Name="ContractEndPicker" Width="150"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Magasság:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="HeightText"/>
+                                    <TextBlock Text="Státusz:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="ContractStatusText" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Erősebb láb:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="PreferredFootText"/>
+                                    <TextBlock Text="Hátralévő idő:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="ContractRemainingText" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <Button Content="Szerződés mentése" Click="SaveContract_Click" 
+                                        Margin="0,10,0,0" Background="#FFC107" Foreground="Black"/>
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox Header="Szerződés" FontWeight="SemiBold">
+                        <GroupBox Header="Személyes Adatok" FontWeight="SemiBold">
                             <StackPanel Margin="10">
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Csatlakozás:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="JoinedTeamText"/>
+                                    <TextBlock Text="Nemzetiségek:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="NationalitiesText"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Szerződés vége:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="ContractEndText"/>
+                                    <TextBlock Text="Születési dátum:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="BirthDateText"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Státusz:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="ContractStatusText"/>
+                                    <TextBlock Text="Magasság:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="HeightText"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Hátralévő idő:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="ContractRemainingText"/>
+                                    <TextBlock Text="Erősebb láb:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="PreferredFootText"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
 
-                 
                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                        <GroupBox Header="Elérhetőség" FontWeight="SemiBold" Margin="0,0,0,15">
+                        <GroupBox Header="Elérhetőség Kezelése" FontWeight="SemiBold" Margin="0,0,0,15">
                             <StackPanel Margin="10">
+                                <CheckBox x:Name="AvailableCheckBox" Content="Játékos elérhető" 
+                                          FontWeight="SemiBold" Margin="0,0,0,10"/>
+
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Státusz:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="AvailabilityText"/>
+                                    <TextBlock Text="Ok:" FontWeight="SemiBold" Width="80"/>
+                                    <TextBox x:Name="ReasonTextBox" Width="200" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Ok:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="UnavailableReasonText"/>
+                                    <TextBlock Text="Visszatérés:" FontWeight="SemiBold" Width="80"/>
+                                    <DatePicker x:Name="ReturnDatePicker" Width="150"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Várható visszatérés:" FontWeight="SemiBold" Width="150"/>
-                                    <TextBlock x:Name="ReturnDateDetailedText"/>
-                                </StackPanel>
+                                <Button Content="Elérhetőség mentése" Click="SaveAvailability_Click" 
+                                        Margin="0,10,0,0" Background="#6F42C1" Foreground="White"/>
                             </StackPanel>
                         </GroupBox>
 
-                        
                         <GroupBox Header="Műveletek" FontWeight="SemiBold">
                             <StackPanel Margin="10">
-                                <Button Content="📊 Statisztikák" Click="ShowStats_Click" 
-                                        Margin="0,5" Background="#17A2B8" Foreground="White"/>
-                                <Button Content="✏️ Szerződés módosítása" Click="ModifyContract_Click" 
-                                        Margin="0,5" Background="#FFC107" Foreground="Black"/>
-                                <Button Content="🔄 Elérhetőség módosítása" Click="ToggleAvailability_Click" 
-                                        Margin="0,5" Background="#6F42C1" Foreground="White"/>
-                                <Button Content="💾 Mentés" Click="Save_Click" 
+                                <Button Content="Összes változás mentése" Click="SaveAll_Click" 
                                         Margin="0,5" Background="#28A745" Foreground="White" FontWeight="Bold"/>
                             </StackPanel>
                         </GroupBox>
