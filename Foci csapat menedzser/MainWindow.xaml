@@ -76,7 +76,10 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0">
-                            <TextBlock x:Name="PlayerNameText" FontSize="24" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock x:Name="PlayerNameText" FontSize="24" FontWeight="Bold"/>
+                                <Image x:Name="PlayerFlagImage" Width="32" Height="24" Margin="5,0,0,0"/>
+                            </StackPanel>
                             <TextBlock x:Name="PlayerPositionText" FontSize="16" Foreground="#6C757D" Margin="0,0,0,10"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">

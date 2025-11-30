@@ -5,6 +5,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Text.Json;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Foci_csapat_menedzser
 {
@@ -89,6 +91,18 @@ namespace Foci_csapat_menedzser
         {
             PlayerNameText.Text = player.Name;
             PlayerPositionText.Text = player.Position;
+
+            try
+            {
+                string flagPath = $"Assets/Flags/{player.FirstNationalityCode}.png";
+                var converter = new ImageSourceConverter();
+                PlayerFlagImage.Source = (ImageSource)converter.ConvertFromString(flagPath);
+            }
+            catch
+            {
+                PlayerFlagImage.Source = null;
+            }
+
             JerseyNumberText.Text = $"#{player.JerseyNumber}";
             AgeText.Text = $"{player.Age} éves";
             MarketValueText.Text = $"{player.MarketValue:N0} €";
@@ -101,12 +115,28 @@ namespace Foci_csapat_menedzser
             }
             else
             {
-                AvailabilityStatusText.Text = "❌ Nem elérhető";
+                AvailabilityStatusText.Text = "❌ Nem elérhető";  
                 AvailabilityStatusText.Foreground = System.Windows.Media.Brushes.Red;
-                ReturnDateText.Text = player.ReturnDate?.ToString("yyyy-MM-dd") ?? "Ismeretlen";
+
+                if (player.ReturnDate.HasValue)
+                {
+                    ReturnDateText.Text = player.ReturnDate.Value.ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    ReturnDateText.Text = "Ismeretlen";
+                }
             }
 
-            NationalitiesText.Text = player.Nationalities != null ? string.Join(", ", player.Nationalities) : "Nincs";
+            if (player.Nationalities != null && player.Nationalities.Count > 0)
+            {
+                NationalitiesText.Text = string.Join(", ", player.Nationalities);
+            }
+            else
+            {
+                NationalitiesText.Text = "Nincs";
+            }
+
             BirthDateText.Text = player.BirthDate.ToString("yyyy-MM-dd");
             HeightText.Text = $"{player.Height} cm";
             PreferredFootText.Text = player.PreferredFoot;
@@ -115,17 +145,39 @@ namespace Foci_csapat_menedzser
             ContractEndPicker.SelectedDate = player.ContractEnd;
 
             string contractStatus = "Aktív";
+
             if (player.ContractEnd < DateTime.Now)
+            {
                 contractStatus = "Lejárt";
+            }
             else if (player.ContractEnd < DateTime.Now.AddMonths(6))
+            {
                 contractStatus = "Hamarosan lejár";
+            }
             ContractStatusText.Text = contractStatus;
 
             TimeSpan remaining = player.ContractEnd - DateTime.Now;
-            ContractRemainingText.Text = remaining.TotalDays > 0 ? $"{(int)remaining.TotalDays} nap" : "Lejárt";
+
+            if (remaining.TotalDays > 0)
+            {
+                ContractRemainingText.Text = $"{(int)remaining.TotalDays} nap";
+            }
+            else
+            {
+                ContractRemainingText.Text = "Lejárt";
+            }
 
             AvailableCheckBox.IsChecked = player.IsAvailable;
-            ReasonTextBox.Text = player.UnavailableReason ?? "";
+
+            if (!string.IsNullOrEmpty(player.UnavailableReason))
+            {
+                ReasonTextBox.Text = player.UnavailableReason;
+            }
+            else
+            {
+                ReasonTextBox.Text = "";
+            }
+
             ReturnDatePicker.SelectedDate = player.ReturnDate;
         }
 
@@ -134,22 +186,44 @@ namespace Foci_csapat_menedzser
             if (FilterComboBox != null && FilterComboBox.SelectedItem is ComboBoxItem item)
             {
                 string filter = item.Content.ToString();
+                filteredPlayers = new List<Player>();
 
                 if (filter == "Csak elérhetők")
                 {
-                    filteredPlayers = players.Where(p => p.IsAvailable).ToList();
+                    foreach (var player in players)
+                    {
+                        if (player.IsAvailable)
+                        {
+                            filteredPlayers.Add(player);
+                        }
+                    }
                 }
                 else if (filter == "Csak sérültek")
                 {
-                    filteredPlayers = players.Where(p => !p.IsAvailable).ToList();
+                    foreach (var player in players)
+                    {
+                        if (!player.IsAvailable)
+                        {
+                            filteredPlayers.Add(player);
+                        }
+                    }
                 }
                 else if (filter == "Lejárt szerződések")
                 {
-                    filteredPlayers = players.Where(p => p.ContractEnd < DateTime.Now).ToList();
+                    foreach (var player in players)
+                    {
+                        if (player.ContractEnd < DateTime.Now)
+                        {
+                            filteredPlayers.Add(player);
+                        }
+                    }
                 }
                 else
                 {
-                    filteredPlayers = players.ToList();
+                    foreach (var player in players)
+                    {
+                        filteredPlayers.Add(player);
+                    }
                 }
 
                 if (PlayerList != null)
