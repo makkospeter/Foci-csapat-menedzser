@@ -90,12 +90,7 @@ namespace Foci_csapat_menedzser
             PlayerNameText.Text = player.Name;
             PlayerPositionText.Text = player.Position;
             JerseyNumberText.Text = $"#{player.JerseyNumber}";
-
-            int age = DateTime.Now.Year - player.BirthDate.Year;
-            if (DateTime.Now.DayOfYear < player.BirthDate.DayOfYear)
-                age--;
-            AgeText.Text = $"{age} éves";
-
+            AgeText.Text = $"{player.Age} éves";
             MarketValueText.Text = $"{player.MarketValue:N0} €";
 
             if (player.IsAvailable)

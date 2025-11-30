@@ -27,21 +27,26 @@ namespace Foci_csapat_menedzser
             get
             {
                 int age = DateTime.Now.Year - BirthDate.Year;
+
                 if (DateTime.Now.DayOfYear < BirthDate.DayOfYear)
+                {
                     age--;
+                }
+
                 return age;
             }
         }
 
-        public string NationalitiesDisplay
+        public string PrimaryNationality
         {
             get
             {
                 if (Nationalities == null || Nationalities.Count == 0)
-                    return "Nincs megadva";
-                if (Nationalities.Count == 1)
-                    return Nationalities[0];
-                return $"{Nationalities[0]} + {Nationalities.Count - 1}";
+                {
+                    return "Hontalan";
+                }
+
+                return Nationalities[0];
             }
         }
     }
