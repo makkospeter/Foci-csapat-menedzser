@@ -3,11 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.IO;
 
 namespace Foci_csapat_menedzser
 {
     public class Player
     {
+        private static Dictionary<string, string> countryCodes;
+
+        static Player()
+        {
+            LoadNationalitiesFromJson();
+        }
+        private static void LoadNationalitiesFromJson()
+        {
+            const string jsonPath = "nationalities.json";
+
+            try
+            {
+                if (File.Exists(jsonPath))
+                {
+                    string json = File.ReadAllText(jsonPath);
+                    var jsonString = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+
+                    if (jsonString == null)
+                    {
+                        countryCodes = new Dictionary<string, string>();
+                    }
+                    else
+                    {
+                        countryCodes = jsonString;
+                    }
+                }
+                else
+                {
+                    countryCodes = new Dictionary<string, string>();
+                }
+            }
+            catch
+            {
+                countryCodes = new Dictionary<string, string>();
+            }
+        }
+
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public List<string> Nationalities { get; set; }
@@ -37,17 +76,45 @@ namespace Foci_csapat_menedzser
             }
         }
 
-        public string PrimaryNationality
+        public string FirstNationality
         {
             get
             {
                 if (Nationalities == null || Nationalities.Count == 0)
                 {
+                    if (Nationalities == null)
+                    {
+                        Nationalities = new List<string>();
+                    }
+                
+                    Nationalities.Add("Hontalan");
+                    
                     return "Hontalan";
                 }
 
                 return Nationalities[0];
             }
+        }
+
+        public string FirstNationalityCode
+        {
+            get
+            {
+                return GetCountryCode(FirstNationality);
+            }
+        }
+
+        private string GetCountryCode(string nationality)
+        {
+            foreach (var codes in countryCodes)
+            {
+                if (codes.Value.Equals(nationality, StringComparison.OrdinalIgnoreCase))
+                {
+                    return codes.Key;
+                }
+            }
+
+            return "unknown";
         }
     }
 }

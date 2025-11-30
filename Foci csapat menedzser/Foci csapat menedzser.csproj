@@ -264,6 +264,7 @@
     <None Remove="Assets\Flags\za.png" />
     <None Remove="Assets\Flags\zm.png" />
     <None Remove="Assets\Flags\zw.png" />
+    <None Remove="nationalities.json" />
     <None Remove="players.json" />
   </ItemGroup>
 
@@ -1028,6 +1029,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Flags\zw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nationalities.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="players.json">
