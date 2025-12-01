@@ -1,0 +1,57 @@
+﻿<Window x:Class="Foci_csapat_menedzser.PlayerEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Játékos" Height="400" Width="400"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Játékos Adatai" 
+                   FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Név:" Width="80" VerticalAlignment="Center"/>
+                <TextBox x:Name="NameTextBox" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Mezszám:" Width="80" VerticalAlignment="Center"/>
+                <TextBox x:Name="JerseyNumberTextBox" Width="60"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Születés:" Width="80" VerticalAlignment="Center"/>
+                <DatePicker x:Name="BirthDatePicker" Width="120"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Pozíció:" Width="80" VerticalAlignment="Center"/>
+                <ComboBox x:Name="PositionComboBox" Width="120">
+                    <ComboBoxItem Content="Kapus"/>
+                    <ComboBoxItem Content="Védő"/>
+                    <ComboBoxItem Content="Középpályás"/>
+                    <ComboBoxItem Content="Csatár"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Láb:" Width="80" VerticalAlignment="Center"/>
+                <RadioButton x:Name="LeftFootRadio" Content="Bal" GroupName="Foot" Margin="5,0"/>
+                <RadioButton x:Name="RightFootRadio" Content="Jobb" GroupName="Foot" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Mégse" Width="70" Height="25" Margin="0,0,10,0" 
+                    Click="CancelButton_Click"/>
+            <Button Content="OK" Width="70" Height="25" 
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -23,7 +23,12 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <TextBlock Text="Játékos Keret" FontWeight="Bold" FontSize="18" Margin="0,0,0,15"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                <TextBlock Text="Játékos Keret" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                <Button x:Name="AddPlayerButton" Content="+" ToolTip="Új játékos" 
+                        Click="AddPlayerButton_Click" Width="30" Height="30" Margin="10,0,0,0"
+                        Background="#28A745" Foreground="White" FontWeight="Bold" FontSize="16"/>
+            </StackPanel>
 
             <StackPanel Margin="0,0,0,10">
                 <TextBlock Text="Szűrők:" FontWeight="SemiBold" Margin="0,0,0,5"/>
@@ -36,7 +41,7 @@
             </StackPanel>
 
             <ListBox x:Name="PlayerList" 
-                     Height="500"
+                     Height="450"
                      SelectionChanged="PlayerList_SelectionChanged"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      Background="Transparent"
@@ -184,5 +189,18 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+
+        <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Bottom">
+            <GroupBox Header="Játékos Műveletek" FontWeight="SemiBold">
+                <StackPanel Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="EditPlayerButton" Content="Szerkesztés" Click="EditPlayerButton_Click" 
+                                Width="100" Height="30" Margin="5" Background="#007BFF" Foreground="White"/>
+                        <Button x:Name="DeletePlayerButton" Content="Törlés" Click="DeletePlayerButton_Click" 
+                                Width="100" Height="30" Margin="5" Background="#DC3545" Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </Window>
