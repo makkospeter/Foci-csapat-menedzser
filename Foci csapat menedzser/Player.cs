@@ -10,7 +10,7 @@ namespace Foci_csapat_menedzser
 {
     public class Player
     {
-        private static Dictionary<string, string> countryCodes;
+        public static Dictionary<string, string> countryCodes;
 
         static Player()
         {
@@ -86,9 +86,9 @@ namespace Foci_csapat_menedzser
                     {
                         Nationalities = new List<string>();
                     }
-                
+
                     Nationalities.Add("Hontalan");
-                    
+
                     return "Hontalan";
                 }
 
@@ -101,6 +101,17 @@ namespace Foci_csapat_menedzser
             get
             {
                 return GetCountryCode(FirstNationality);
+            }
+        }
+
+        public string NationalitiesDisplay
+        {
+            get
+            {
+                if (Nationalities == null || Nationalities.Count == 0)
+                    return "Nincs nemzetiség";
+
+                return string.Join(", ", Nationalities);
             }
         }
 
