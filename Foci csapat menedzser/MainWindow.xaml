@@ -41,11 +41,11 @@
             </StackPanel>
 
             <ListBox x:Name="PlayerList" 
-         Height="500"
-         SelectionChanged="PlayerList_SelectionChanged"
-         ScrollViewer.VerticalScrollBarVisibility="Auto"
-         Background="Transparent"
-         BorderThickness="0">
+                     Height="500"
+                     SelectionChanged="PlayerList_SelectionChanged"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Background="Transparent"
+                     BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Style="{StaticResource PlayerCardStyle}">
@@ -61,7 +61,7 @@
                                 </StackPanel>
                                 <TextBlock Text="{Binding FirstNationality}" FontSize="11" Foreground="#28A745"/>
                                 <TextBlock Text="{Binding MarketValue, StringFormat='{}{0:N0} €'}" 
-                               FontSize="11" FontWeight="SemiBold" Foreground="#FD7E14"/>
+                                           FontSize="11" FontWeight="SemiBold" Foreground="#FD7E14"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -188,8 +188,6 @@
                                 Width="100" Height="30" Margin="5" Background="#007BFF" Foreground="White"/>
                         <Button x:Name="DeletePlayerButton" Content="Törlés" Click="DeletePlayerButton_Click" 
                                 Width="100" Height="30" Margin="5" Background="#DC3545" Foreground="White"/>
-                        <Button x:Name="SaveAllButton" Content="Mentés" Click="SaveAll_Click" 
-                                Width="100" Height="30" Margin="5" Background="#28A745" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
