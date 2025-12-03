@@ -9,7 +9,7 @@
     "ReturnDate": null,
     "JerseyNumber": 10,
     "Height": 179,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középpályás",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2026-06-30"
@@ -24,7 +24,7 @@
     "ReturnDate": "2024-11-30",
     "JerseyNumber": 7,
     "Height": 175,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2020-08-15",
     "ContractEnd": "2025-06-30"
@@ -39,7 +39,7 @@
     "ReturnDate": null,
     "JerseyNumber": 17,
     "Height": 182,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középhátvéd",
     "JoinedTeam": "2023-01-10",
     "ContractEnd": "2027-06-30"
@@ -54,7 +54,7 @@
     "ReturnDate": null,
     "JerseyNumber": 4,
     "Height": 185,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középhátvéd",
     "JoinedTeam": "2021-07-01",
     "ContractEnd": "2025-06-30"
@@ -69,7 +69,7 @@
     "ReturnDate": "2024-11-25",
     "JerseyNumber": 5,
     "Height": 188,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középhátvéd",
     "JoinedTeam": "2019-08-20",
     "ContractEnd": "2024-06-30"
@@ -84,7 +84,7 @@
     "ReturnDate": null,
     "JerseyNumber": 9,
     "Height": 183,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Csatár",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2026-06-30"
@@ -99,7 +99,7 @@
     "ReturnDate": null,
     "JerseyNumber": 3,
     "Height": 184,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középhátvéd",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2028-06-30"
@@ -114,7 +114,7 @@
     "ReturnDate": null,
     "JerseyNumber": 2,
     "Height": 177,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Szélsőhátvéd",
     "JoinedTeam": "2020-07-01",
     "ContractEnd": "2025-06-30"
@@ -129,7 +129,7 @@
     "ReturnDate": "2025-01-15",
     "JerseyNumber": 8,
     "Height": 181,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Középpályás",
     "JoinedTeam": "2022-01-15",
     "ContractEnd": "2026-06-30"
@@ -144,7 +144,7 @@
     "ReturnDate": null,
     "JerseyNumber": 6,
     "Height": 186,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Védekező középpályás",
     "JoinedTeam": "2021-07-01",
     "ContractEnd": "2025-06-30"
@@ -159,7 +159,7 @@
     "ReturnDate": null,
     "JerseyNumber": 11,
     "Height": 179,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2027-06-30"
@@ -174,7 +174,7 @@
     "ReturnDate": null,
     "JerseyNumber": 14,
     "Height": 185,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Csatár",
     "JoinedTeam": "2020-01-10",
     "ContractEnd": "2024-06-30"
@@ -189,7 +189,7 @@
     "ReturnDate": "2024-11-20",
     "JerseyNumber": 19,
     "Height": 182,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Támadó középpályás",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2026-06-30"
@@ -204,7 +204,7 @@
     "ReturnDate": null,
     "JerseyNumber": 20,
     "Height": 178,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Szélsőhátvéd",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2028-06-30"
@@ -219,7 +219,7 @@
     "ReturnDate": null,
     "JerseyNumber": 21,
     "Height": 183,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középpályás",
     "JoinedTeam": "2021-07-01",
     "ContractEnd": "2025-06-30"
@@ -234,7 +234,7 @@
     "ReturnDate": null,
     "JerseyNumber": 22,
     "Height": 180,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Védekező középpályás",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2026-06-30"
@@ -249,7 +249,7 @@
     "ReturnDate": null,
     "JerseyNumber": 23,
     "Height": 187,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2020-08-15",
     "ContractEnd": "2025-06-30"
@@ -264,7 +264,7 @@
     "ReturnDate": null,
     "JerseyNumber": 13,
     "Height": 181,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Támadó középpályás",
     "JoinedTeam": "2021-07-01",
     "ContractEnd": "2025-06-30"
@@ -279,7 +279,7 @@
     "ReturnDate": "2024-12-10",
     "JerseyNumber": 15,
     "Height": 185,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2026-06-30"
@@ -294,7 +294,7 @@
     "ReturnDate": null,
     "JerseyNumber": 18,
     "Height": 186,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Csatár",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2027-06-30"
@@ -309,7 +309,7 @@
     "ReturnDate": null,
     "JerseyNumber": 30,
     "Height": 170,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2028-06-30"
@@ -324,7 +324,7 @@
     "ReturnDate": null,
     "JerseyNumber": 16,
     "Height": 181,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Középpályás",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2025-06-30"
@@ -339,7 +339,7 @@
     "ReturnDate": "2024-11-18",
     "JerseyNumber": 25,
     "Height": 175,
-    "PreferredFoot": "Left",
+    "PreferredFoot": "Bal",
     "Position": "Szélső",
     "JoinedTeam": "2021-07-01",
     "ContractEnd": "2026-06-30"
@@ -354,7 +354,7 @@
     "ReturnDate": null,
     "JerseyNumber": 1,
     "Height": 188,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Csatár",
     "JoinedTeam": "2023-07-01",
     "ContractEnd": "2027-06-30"
@@ -369,7 +369,7 @@
     "ReturnDate": null,
     "JerseyNumber": 12,
     "Height": 185,
-    "PreferredFoot": "Right",
+    "PreferredFoot": "Jobb",
     "Position": "Csatár",
     "JoinedTeam": "2022-07-01",
     "ContractEnd": "2025-06-30"

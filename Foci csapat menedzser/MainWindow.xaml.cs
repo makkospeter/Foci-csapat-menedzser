@@ -141,8 +141,8 @@ namespace Foci_csapat_menedzser
             HeightText.Text = $"{player.Height} cm";
             PreferredFootText.Text = player.PreferredFoot;
 
-            JoinedTeamPicker.SelectedDate = player.JoinedTeam;
-            ContractEndPicker.SelectedDate = player.ContractEnd;
+            JoinedTeamText.Text = player.JoinedTeam.ToString("yyyy-MM-dd");
+            ContractEndText.Text = player.ContractEnd.ToString("yyyy-MM-dd");
 
             string contractStatus = "Aktív";
 
@@ -167,18 +167,25 @@ namespace Foci_csapat_menedzser
                 ContractRemainingText.Text = "Lejárt";
             }
 
-            AvailableCheckBox.IsChecked = player.IsAvailable;
+            AvailabilityText.Text = player.IsAvailable ? "Elérhető" : "Nem elérhető";
 
             if (!string.IsNullOrEmpty(player.UnavailableReason))
             {
-                ReasonTextBox.Text = player.UnavailableReason;
+                UnavailableReasonText.Text = player.UnavailableReason;
             }
             else
             {
-                ReasonTextBox.Text = "";
+                UnavailableReasonText.Text = "Nincs";
             }
 
-            ReturnDatePicker.SelectedDate = player.ReturnDate;
+            if (player.ReturnDate.HasValue)
+            {
+                ReturnDateDetailedText.Text = player.ReturnDate.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ReturnDateDetailedText.Text = "Nincs";
+            }
         }
 
         private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -234,68 +241,6 @@ namespace Foci_csapat_menedzser
             }
         }
 
-        private void SaveContract_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPlayer == null) return;
-
-            if (JoinedTeamPicker.SelectedDate == null || ContractEndPicker.SelectedDate == null)
-            {
-                MessageBox.Show("Kérlek, add meg mindkét dátumot!");
-                return;
-            }
-
-            if (ContractEndPicker.SelectedDate <= JoinedTeamPicker.SelectedDate)
-            {
-                MessageBox.Show("A szerződés vége nem lehet korábbi, mint a csatlakozás dátuma!");
-                return;
-            }
-
-            currentPlayer.JoinedTeam = JoinedTeamPicker.SelectedDate.Value;
-            currentPlayer.ContractEnd = ContractEndPicker.SelectedDate.Value;
-
-            if (currentPlayer.ContractEnd < DateTime.Now)
-            {
-                currentPlayer.IsAvailable = false;
-                if (string.IsNullOrEmpty(currentPlayer.UnavailableReason))
-                {
-                    currentPlayer.UnavailableReason = "Lejárt szerződés";
-                }
-            }
-
-            PlayerList.Items.Refresh();
-            UpdatePlayerDetails(currentPlayer);
-            MessageBox.Show("Szerződés adatai frissítve!");
-        }
-
-        private void SaveAvailability_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPlayer == null) return;
-
-            bool newAvailable = AvailableCheckBox.IsChecked == true;
-            string newReason = ReasonTextBox.Text;
-            DateTime? newReturnDate = ReturnDatePicker.SelectedDate;
-
-            if (!newAvailable && string.IsNullOrWhiteSpace(newReason))
-            {
-                MessageBox.Show("Kérlek, add meg az okot, ha a játékos nem elérhető!");
-                return;
-            }
-
-            if (!newAvailable && newReturnDate == null)
-            {
-                MessageBox.Show("Kérlek, add meg a várható visszatérés dátumát!");
-                return;
-            }
-
-            currentPlayer.IsAvailable = newAvailable;
-            currentPlayer.UnavailableReason = newReason;
-            currentPlayer.ReturnDate = newReturnDate;
-
-            PlayerList.Items.Refresh();
-            UpdatePlayerDetails(currentPlayer);
-            MessageBox.Show("Elérhetőség frissítve!");
-        }
-
         private void SaveAll_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -323,16 +268,13 @@ namespace Foci_csapat_menedzser
             if (editorWindow.ShowDialog() == true)
             {
                 var newPlayer = editorWindow.EditedPlayer;
-                newPlayer.JoinedTeam = DateTime.Now;
-                newPlayer.ContractEnd = DateTime.Now.AddYears(3);
-
                 players.Add(newPlayer);
                 filteredPlayers.Add(newPlayer);
 
                 RefreshPlayerList();
                 SaveAllChanges();
 
-                MessageBox.Show("Új játékos sikeresen hozzáadva!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Új játékos sikeresen hozzáadva!");
             }
         }
 
@@ -340,7 +282,7 @@ namespace Foci_csapat_menedzser
         {
             if (currentPlayer == null)
             {
-                MessageBox.Show("Kérjük, válasszon ki egy játékost a szerkesztéshez!", "Nincs kiválasztva", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Kérjük, válasszon ki egy játékost a szerkesztéshez!");
                 return;
             }
 
@@ -365,12 +307,14 @@ namespace Foci_csapat_menedzser
                     originalPlayer.Height = editedPlayer.Height;
                     originalPlayer.PreferredFoot = editedPlayer.PreferredFoot;
                     originalPlayer.Position = editedPlayer.Position;
+                    originalPlayer.JoinedTeam = editedPlayer.JoinedTeam;
+                    originalPlayer.ContractEnd = editedPlayer.ContractEnd;
 
                     RefreshPlayerList();
                     UpdatePlayerDetails(originalPlayer);
                     SaveAllChanges();
 
-                    MessageBox.Show("Játékos adatai sikeresen frissítve!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Játékos adatai sikeresen frissítve!");
                 }
             }
         }
@@ -379,7 +323,7 @@ namespace Foci_csapat_menedzser
         {
             if (currentPlayer == null)
             {
-                MessageBox.Show("Kérjük, válasszon ki egy játékost a törléshez!", "Nincs kiválasztva", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Kérjük, válasszon ki egy játékost a törléshez!");
                 return;
             }
 
@@ -396,7 +340,7 @@ namespace Foci_csapat_menedzser
                 ClearPlayerDetails();
                 SaveAllChanges();
 
-                MessageBox.Show("Játékos sikeresen törölve!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Játékos sikeresen törölve!");
             }
         }
 
@@ -420,13 +364,13 @@ namespace Foci_csapat_menedzser
             BirthDateText.Text = "";
             HeightText.Text = "";
             PreferredFootText.Text = "";
-            JoinedTeamPicker.SelectedDate = null;
-            ContractEndPicker.SelectedDate = null;
+            JoinedTeamText.Text = "";
+            ContractEndText.Text = "";
             ContractStatusText.Text = "";
             ContractRemainingText.Text = "";
-            AvailableCheckBox.IsChecked = true;
-            ReasonTextBox.Text = "";
-            ReturnDatePicker.SelectedDate = null;
+            AvailabilityText.Text = "";
+            UnavailableReasonText.Text = "";
+            ReturnDateDetailedText.Text = "";
         }
 
         private void SaveAllChanges()
@@ -443,7 +387,7 @@ namespace Foci_csapat_menedzser
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Hiba a mentéskor: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba a mentéskor: {ex.Message}");
             }
         }
     }

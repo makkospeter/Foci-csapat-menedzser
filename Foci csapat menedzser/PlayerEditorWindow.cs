@@ -8,8 +8,6 @@ namespace Foci_csapat_menedzser
     public partial class PlayerEditorWindow : Window
     {
         public Player EditedPlayer { get; private set; }
-        private bool isEditMode;
-        private Player originalPlayer;
 
         public PlayerEditorWindow(Player player = null)
         {
@@ -17,9 +15,6 @@ namespace Foci_csapat_menedzser
 
             if (player != null)
             {
-                isEditMode = true;
-                originalPlayer = player;
-
                 List<string> nationalities;
                 if (player.Nationalities != null)
                 {
@@ -50,7 +45,6 @@ namespace Foci_csapat_menedzser
             }
             else
             {
-                isEditMode = false;
                 EditedPlayer = new Player
                 {
                     Nationalities = new List<string>(),
@@ -111,9 +105,13 @@ namespace Foci_csapat_menedzser
                 }
             }
 
-            if (EditedPlayer.PreferredFoot == "Left")
+            if (EditedPlayer.PreferredFoot == "Bal")
             {
                 LeftFootRadio.IsChecked = true;
+            }
+            else if (EditedPlayer.PreferredFoot == "Jobb")
+            {
+                RightFootRadio.IsChecked = true;
             }
             else
             {
@@ -135,18 +133,15 @@ namespace Foci_csapat_menedzser
             UnavailableReasonTextBox.Text = EditedPlayer.UnavailableReason;
             ReturnDatePicker.SelectedDate = EditedPlayer.ReturnDate;
 
+            JoinedTeamPicker.SelectedDate = EditedPlayer.JoinedTeam;
+            ContractEndPicker.SelectedDate = EditedPlayer.ContractEnd;
+
             UpdateAvailabilityPanel();
         }
 
         private void UpdateAvailabilityPanel()
         {
-            bool isAvailable = false;
-            if (IsAvailableCheckBox.IsChecked.HasValue)
-            {
-                isAvailable = IsAvailableCheckBox.IsChecked.Value;
-            }
-
-            if (isAvailable)
+            if (IsAvailableCheckBox.IsChecked == true)
             {
                 UnavailablePanel.Visibility = Visibility.Collapsed;
             }
@@ -225,7 +220,7 @@ namespace Foci_csapat_menedzser
         {
             if (string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
-                MessageBox.Show("A név megadása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A név megadása kötelező!");
                 NameTextBox.Focus();
                 return false;
             }
@@ -233,14 +228,14 @@ namespace Foci_csapat_menedzser
             string jerseyText = JerseyNumberTextBox.Text;
             if (!IsValidNumber(jerseyText, 1, 99))
             {
-                MessageBox.Show("A mezszám 1 és 99 közötti szám kell legyen!", "Érvénytelen adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A mezszám 1 és 99 közötti szám kell legyen!");
                 JerseyNumberTextBox.Focus();
                 return false;
             }
 
             if (BirthDatePicker.SelectedDate == null)
             {
-                MessageBox.Show("A születési dátum megadása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A születési dátum megadása kötelező!");
                 BirthDatePicker.Focus();
                 return false;
             }
@@ -248,67 +243,62 @@ namespace Foci_csapat_menedzser
             string heightText = HeightTextBox.Text;
             if (!IsValidNumber(heightText, 150, 220))
             {
-                MessageBox.Show("A magasság 150 és 220 cm között kell legyen!", "Érvénytelen adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A magasság 150 és 220 cm között kell legyen!");
                 HeightTextBox.Focus();
                 return false;
             }
 
             if (PositionComboBox.SelectedItem == null)
             {
-                MessageBox.Show("A pozíció kiválasztása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A pozíció kiválasztása kötelező!");
                 PositionComboBox.Focus();
                 return false;
             }
 
-            bool leftChecked = false;
-            bool rightChecked = false;
-            if (LeftFootRadio.IsChecked.HasValue)
+            if (LeftFootRadio.IsChecked != true && RightFootRadio.IsChecked != true)
             {
-                leftChecked = LeftFootRadio.IsChecked.Value;
-            }
-            if (RightFootRadio.IsChecked.HasValue)
-            {
-                rightChecked = RightFootRadio.IsChecked.Value;
-            }
-
-            if (!leftChecked && !rightChecked)
-            {
-                MessageBox.Show("Az erősebb láb kiválasztása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Az erősebb láb kiválasztása kötelező!");
                 return false;
             }
 
             if (NationalitiesListBox.Items.Count == 0)
             {
-                MessageBox.Show("Legalább egy nemzetiség megadása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Legalább egy nemzetiség megadása kötelező!");
                 return false;
             }
 
             string marketValueText = MarketValueTextBox.Text;
             if (!IsValidPositiveNumber(marketValueText))
             {
-                MessageBox.Show("A piaci érték pozitív szám kell legyen!", "Érvénytelen adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A piaci érték pozitív szám kell legyen!");
                 MarketValueTextBox.Focus();
                 return false;
             }
 
-            bool isAvailable = false;
-            if (IsAvailableCheckBox.IsChecked.HasValue)
+            if (JoinedTeamPicker.SelectedDate == null || ContractEndPicker.SelectedDate == null)
             {
-                isAvailable = IsAvailableCheckBox.IsChecked.Value;
+                MessageBox.Show("Mindkét szerződési dátumot meg kell adni!");
+                return false;
             }
 
-            if (!isAvailable)
+            if (ContractEndPicker.SelectedDate <= JoinedTeamPicker.SelectedDate)
+            {
+                MessageBox.Show("A szerződés vége nem lehet korábbi, mint a csatlakozás dátuma!");
+                return false;
+            }
+
+            if (IsAvailableCheckBox.IsChecked == false)
             {
                 if (string.IsNullOrWhiteSpace(UnavailableReasonTextBox.Text))
                 {
-                    MessageBox.Show("Az elérhetetlenség okának megadása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Az elérhetetlenség okának megadása kötelező!");
                     UnavailableReasonTextBox.Focus();
                     return false;
                 }
 
                 if (ReturnDatePicker.SelectedDate == null)
                 {
-                    MessageBox.Show("A visszatérés dátumának megadása kötelező!", "Hiányzó adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("A visszatérés dátumának megadása kötelező!");
                     ReturnDatePicker.Focus();
                     return false;
                 }
@@ -328,26 +318,18 @@ namespace Foci_csapat_menedzser
             {
                 EditedPlayer.Name = NameTextBox.Text.Trim();
                 EditedPlayer.JerseyNumber = int.Parse(JerseyNumberTextBox.Text);
-
-                if (BirthDatePicker.SelectedDate.HasValue)
-                {
-                    EditedPlayer.BirthDate = BirthDatePicker.SelectedDate.Value;
-                }
-
+                EditedPlayer.BirthDate = BirthDatePicker.SelectedDate.Value;
                 EditedPlayer.Height = int.Parse(HeightTextBox.Text);
 
-                if (PositionComboBox.SelectedItem is ComboBoxItem selectedItem)
-                {
-                    EditedPlayer.Position = selectedItem.Content.ToString();
-                }
+                EditedPlayer.Position = (PositionComboBox.SelectedItem as ComboBoxItem).Content.ToString();
 
                 if (LeftFootRadio.IsChecked == true)
                 {
-                    EditedPlayer.PreferredFoot = "Left";
+                    EditedPlayer.PreferredFoot = "Bal";
                 }
                 else
                 {
-                    EditedPlayer.PreferredFoot = "Right";
+                    EditedPlayer.PreferredFoot = "Jobb";
                 }
 
                 EditedPlayer.Nationalities.Clear();
@@ -358,14 +340,23 @@ namespace Foci_csapat_menedzser
 
                 EditedPlayer.MarketValue = int.Parse(MarketValueTextBox.Text);
 
-                bool isAvailable = false;
-                if (IsAvailableCheckBox.IsChecked.HasValue)
-                {
-                    isAvailable = IsAvailableCheckBox.IsChecked.Value;
-                }
-                EditedPlayer.IsAvailable = isAvailable;
+                EditedPlayer.JoinedTeam = JoinedTeamPicker.SelectedDate.Value;
+                EditedPlayer.ContractEnd = ContractEndPicker.SelectedDate.Value;
 
-                if (isAvailable)
+                if (EditedPlayer.ContractEnd < DateTime.Now)
+                {
+                    EditedPlayer.IsAvailable = false;
+                    if (string.IsNullOrEmpty(EditedPlayer.UnavailableReason))
+                    {
+                        EditedPlayer.UnavailableReason = "Lejárt szerződés";
+                    }
+                }
+                else
+                {
+                    EditedPlayer.IsAvailable = IsAvailableCheckBox.IsChecked == true;
+                }
+
+                if (EditedPlayer.IsAvailable)
                 {
                     EditedPlayer.UnavailableReason = null;
                     EditedPlayer.ReturnDate = null;
@@ -373,10 +364,7 @@ namespace Foci_csapat_menedzser
                 else
                 {
                     EditedPlayer.UnavailableReason = UnavailableReasonTextBox.Text.Trim();
-                    if (ReturnDatePicker.SelectedDate.HasValue)
-                    {
-                        EditedPlayer.ReturnDate = ReturnDatePicker.SelectedDate.Value;
-                    }
+                    EditedPlayer.ReturnDate = ReturnDatePicker.SelectedDate.Value;
                 }
 
                 DialogResult = true;
@@ -384,7 +372,7 @@ namespace Foci_csapat_menedzser
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hiba történt az adatok mentésekor: " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Hiba történt az adatok mentésekor: " + ex.Message);
             }
         }
 
@@ -393,5 +381,6 @@ namespace Foci_csapat_menedzser
             DialogResult = false;
             Close();
         }
+        //TODO exceptionök hozzáadása/kezelése(születési év, piaci érték, név[szám, vessző], egyező mezszám)
     }
 }
