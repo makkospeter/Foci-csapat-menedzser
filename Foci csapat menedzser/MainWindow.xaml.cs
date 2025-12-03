@@ -12,7 +12,7 @@ namespace Foci_csapat_menedzser
 {
     public partial class MainWindow : Window
     {
-        private List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
         private List<Player> filteredPlayers = new List<Player>();
         private const string JsonFile = "players.json";
         private Player currentPlayer;
@@ -27,7 +27,7 @@ namespace Foci_csapat_menedzser
             LoadPlayers();
         }
 
-        private void LoadPlayers()
+        public void LoadPlayers()
         {
             try
             {
@@ -167,7 +167,14 @@ namespace Foci_csapat_menedzser
                 ContractRemainingText.Text = "Lejárt";
             }
 
-            AvailabilityText.Text = player.IsAvailable ? "Elérhető" : "Nem elérhető";
+            if (player.IsAvailable)
+            {
+                AvailabilityText.Text = "Elérhető";
+            }
+            else
+            {
+                AvailabilityText.Text = "Nem elérhető";
+            }
 
             if (!string.IsNullOrEmpty(player.UnavailableReason))
             {
@@ -262,7 +269,7 @@ namespace Foci_csapat_menedzser
 
         private void AddPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            var editorWindow = new PlayerEditorWindow();
+            var editorWindow = new PlayerEditorWindow(null, this);
             editorWindow.Owner = this;
 
             if (editorWindow.ShowDialog() == true)
@@ -282,11 +289,11 @@ namespace Foci_csapat_menedzser
         {
             if (currentPlayer == null)
             {
-                MessageBox.Show("Kérjük, válasszon ki egy játékost a szerkesztéshez!");
+                MessageBox.Show("Válasszon ki egy játékost a szerkesztéshez!");
                 return;
             }
 
-            var editorWindow = new PlayerEditorWindow(currentPlayer);
+            var editorWindow = new PlayerEditorWindow(currentPlayer, this);
             editorWindow.Owner = this;
 
             if (editorWindow.ShowDialog() == true)
@@ -323,7 +330,7 @@ namespace Foci_csapat_menedzser
         {
             if (currentPlayer == null)
             {
-                MessageBox.Show("Kérjük, válasszon ki egy játékost a törléshez!");
+                MessageBox.Show("Válasszon ki egy játékost a törléshez!");
                 return;
             }
 

@@ -41,11 +41,11 @@
             </StackPanel>
 
             <ListBox x:Name="PlayerList" 
-                     Height="500"
-                     SelectionChanged="PlayerList_SelectionChanged"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Background="Transparent"
-                     BorderThickness="0">
+         Height="500"
+         SelectionChanged="PlayerList_SelectionChanged"
+         ScrollViewer.VerticalScrollBarVisibility="Auto"
+         Background="Transparent"
+         BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Style="{StaticResource PlayerCardStyle}">
@@ -59,9 +59,9 @@
                                     <TextBlock Text=" éves • " Foreground="#6C757D"/>
                                     <TextBlock Text="{Binding PreferredFoot}" FontSize="10"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding NationalitiesDisplay}" FontSize="11" Foreground="#28A745"/>
+                                <TextBlock Text="{Binding FirstNationality}" FontSize="11" Foreground="#28A745"/>
                                 <TextBlock Text="{Binding MarketValue, StringFormat='{}{0:N0} €'}" 
-                                           FontSize="11" FontWeight="SemiBold" Foreground="#FD7E14"/>
+                               FontSize="11" FontWeight="SemiBold" Foreground="#FD7E14"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -139,7 +139,7 @@
                         <GroupBox Header="Személyes Adatok" FontWeight="SemiBold">
                             <StackPanel Margin="10">
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Nemzetiségek:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock Text="Nemzetiség(ek):" FontWeight="SemiBold" Width="120"/>
                                     <TextBlock x:Name="NationalitiesText"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">

@@ -65,13 +65,22 @@
                                 <TextBlock Text="Pozíció:" Style="{StaticResource LabelStyle}"/>
                                 <ComboBox x:Name="PositionComboBox" Width="200" Height="25">
                                     <ComboBoxItem Content="Kapus"/>
-                                    <ComboBoxItem Content="Szélsőhátvéd"/>
+                                    <ComboBoxItem Content="Söprögető"/>
                                     <ComboBoxItem Content="Középhátvéd"/>
+                                    <ComboBoxItem Content="Jobbhátvéd"/>
+                                    <ComboBoxItem Content="Balhátvéd"/>
+                                    <ComboBoxItem Content="Jobb oldali szárnyvédő"/>
+                                    <ComboBoxItem Content="Bal oldali szárnyvédő"/>
                                     <ComboBoxItem Content="Védekező középpályás"/>
                                     <ComboBoxItem Content="Középpályás"/>
                                     <ComboBoxItem Content="Támadó középpályás"/>
+                                    <ComboBoxItem Content="Jobb középpályás"/>
+                                    <ComboBoxItem Content="Bal középpályás"/>
+                                    <ComboBoxItem Content="Jobb szélső"/>
+                                    <ComboBoxItem Content="Bal szélső"/>
                                     <ComboBoxItem Content="Szélső"/>
-                                    <ComboBoxItem Content="Csatár"/>
+                                    <ComboBoxItem Content="Középcsatár"/>
+                                    <ComboBoxItem Content="Második csatár"/>
                                 </ComboBox>
                             </StackPanel>
 

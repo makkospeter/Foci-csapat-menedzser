@@ -8,76 +8,99 @@ namespace Foci_csapat_menedzser
     public partial class PlayerEditorWindow : Window
     {
         public Player EditedPlayer { get; private set; }
+        private MainWindow mainWindow;
 
-        public PlayerEditorWindow(Player player = null)
+        public PlayerEditorWindow(Player player = null, Window owner = null)
         {
             InitializeComponent();
 
+            if (owner is MainWindow mw)
+            {
+                mainWindow = mw;
+            }
+
             if (player != null)
             {
-                List<string> nationalities;
-                if (player.Nationalities != null)
-                {
-                    nationalities = new List<string>(player.Nationalities);
-                }
-                else
-                {
-                    nationalities = new List<string>();
-                }
-
-                EditedPlayer = new Player
-                {
-                    Name = player.Name,
-                    BirthDate = player.BirthDate,
-                    Nationalities = nationalities,
-                    MarketValue = player.MarketValue,
-                    IsAvailable = player.IsAvailable,
-                    UnavailableReason = player.UnavailableReason,
-                    ReturnDate = player.ReturnDate,
-                    JerseyNumber = player.JerseyNumber,
-                    Height = player.Height,
-                    PreferredFoot = player.PreferredFoot,
-                    Position = player.Position,
-                    JoinedTeam = player.JoinedTeam,
-                    ContractEnd = player.ContractEnd
-                };
-                Title = "Játékos Szerkesztése";
+                TempEditedPlayer(player);
             }
             else
             {
-                EditedPlayer = new Player
-                {
-                    Nationalities = new List<string>(),
-                    BirthDate = DateTime.Now.AddYears(-20),
-                    JoinedTeam = DateTime.Now,
-                    ContractEnd = DateTime.Now.AddYears(3),
-                    IsAvailable = true
-                };
-                Title = "Új Játékos Hozzáadása";
+                NewPlayer();
             }
 
             LoadNationalities();
-            InitializeForm();
+            
+            FillForm();
+        }
+
+        private void TempEditedPlayer(Player player)
+        {
+            List<string> nationalities;
+
+            if (player.Nationalities != null)
+            {
+                nationalities = new List<string>(player.Nationalities);
+            }
+            else
+            {
+                nationalities = new List<string>();
+            }
+
+            EditedPlayer = new Player
+            {
+                Name = player.Name,
+                BirthDate = player.BirthDate,
+                Nationalities = nationalities,
+                MarketValue = player.MarketValue,
+                IsAvailable = player.IsAvailable,
+                UnavailableReason = player.UnavailableReason,
+                ReturnDate = player.ReturnDate,
+                JerseyNumber = player.JerseyNumber,
+                Height = player.Height,
+                PreferredFoot = player.PreferredFoot,
+                Position = player.Position,
+                JoinedTeam = player.JoinedTeam,
+                ContractEnd = player.ContractEnd
+            };
+
+            Title = "Játékos Szerkesztése";
+        }
+
+        private void NewPlayer()
+        {
+            EditedPlayer = new Player
+            {
+                Nationalities = new List<string>(),
+                BirthDate = DateTime.Now.AddYears(-20),
+                JoinedTeam = DateTime.Now,
+                ContractEnd = DateTime.Now.AddYears(3),
+                IsAvailable = true
+            };
+
+            Title = "Új Játékos Hozzáadása";
         }
 
         private void LoadNationalities()
         {
             NationalityComboBox.Items.Clear();
 
-            if (Player.countryCodes != null)
+            if (Player.countryCodes == null)
             {
-                List<string> nationalities = new List<string>();
-                foreach (var codePair in Player.countryCodes)
-                {
-                    nationalities.Add(codePair.Value);
-                }
+                return;
+            }
 
-                nationalities.Sort();
+            List<string> nationalities = new List<string>();
 
-                foreach (var nationality in nationalities)
-                {
-                    NationalityComboBox.Items.Add(nationality);
-                }
+            foreach (var codePair in Player.countryCodes)
+            {
+                nationalities.Add(codePair.Value);
+            }
+
+            nationalities.Sort();
+
+            foreach (var nationality in nationalities)
+            {
+                NationalityComboBox.Items.Add(nationality);
             }
 
             if (NationalityComboBox.Items.Count > 0)
@@ -86,25 +109,50 @@ namespace Foci_csapat_menedzser
             }
         }
 
-        private void InitializeForm()
+        private void FillForm()
         {
             NameTextBox.Text = EditedPlayer.Name;
             JerseyNumberTextBox.Text = EditedPlayer.JerseyNumber.ToString();
             BirthDatePicker.SelectedDate = EditedPlayer.BirthDate;
             HeightTextBox.Text = EditedPlayer.Height.ToString();
 
-            if (!string.IsNullOrEmpty(EditedPlayer.Position))
+            SetPosition();
+
+            SetFoot();
+
+            FillNationalitiesPanel();
+
+            MarketValueTextBox.Text = EditedPlayer.MarketValue.ToString();
+
+            IsAvailableCheckBox.IsChecked = EditedPlayer.IsAvailable;
+            UnavailableReasonTextBox.Text = EditedPlayer.UnavailableReason;
+            ReturnDatePicker.SelectedDate = EditedPlayer.ReturnDate;
+
+            JoinedTeamPicker.SelectedDate = EditedPlayer.JoinedTeam;
+            ContractEndPicker.SelectedDate = EditedPlayer.ContractEnd;
+
+            UpdateAvailabilityPanel();
+        }
+
+        private void SetPosition()
+        {
+            if (string.IsNullOrEmpty(EditedPlayer.Position))
             {
-                foreach (ComboBoxItem item in PositionComboBox.Items)
-                {
-                    if (item.Content.ToString() == EditedPlayer.Position)
-                    {
-                        PositionComboBox.SelectedItem = item;
-                        break;
-                    }
-                }
+                return;
             }
 
+            foreach (ComboBoxItem item in PositionComboBox.Items)
+            {
+                if (item.Content.ToString() == EditedPlayer.Position)
+                {
+                    PositionComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+        }
+
+        private void SetFoot()
+        {
             if (EditedPlayer.PreferredFoot == "Bal")
             {
                 LeftFootRadio.IsChecked = true;
@@ -117,26 +165,21 @@ namespace Foci_csapat_menedzser
             {
                 RightFootRadio.IsChecked = true;
             }
+        }
 
+        private void FillNationalitiesPanel()
+        {
             NationalitiesListBox.Items.Clear();
-            if (EditedPlayer.Nationalities != null)
+
+            if (EditedPlayer.Nationalities == null)
             {
-                foreach (var nationality in EditedPlayer.Nationalities)
-                {
-                    NationalitiesListBox.Items.Add(nationality);
-                }
+                return;
             }
 
-            MarketValueTextBox.Text = EditedPlayer.MarketValue.ToString();
-
-            IsAvailableCheckBox.IsChecked = EditedPlayer.IsAvailable;
-            UnavailableReasonTextBox.Text = EditedPlayer.UnavailableReason;
-            ReturnDatePicker.SelectedDate = EditedPlayer.ReturnDate;
-
-            JoinedTeamPicker.SelectedDate = EditedPlayer.JoinedTeam;
-            ContractEndPicker.SelectedDate = EditedPlayer.ContractEnd;
-
-            UpdateAvailabilityPanel();
+            foreach (var nationality in EditedPlayer.Nationalities)
+            {
+                NationalitiesListBox.Items.Add(nationality);
+            }
         }
 
         private void UpdateAvailabilityPanel()
@@ -158,24 +201,26 @@ namespace Foci_csapat_menedzser
 
         private void AddNationalityButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NationalityComboBox.SelectedItem != null)
+            if (NationalityComboBox.SelectedItem == null)
             {
-                string nationality = NationalityComboBox.SelectedItem.ToString();
+                return;
+            }
 
-                bool contains = false;
-                foreach (var item in NationalitiesListBox.Items)
-                {
-                    if (item.ToString() == nationality)
-                    {
-                        contains = true;
-                        break;
-                    }
-                }
+            string nationality = NationalityComboBox.SelectedItem.ToString();
+            bool alreadyAdded = false;
 
-                if (!contains)
+            foreach (var item in NationalitiesListBox.Items)
+            {
+                if (item.ToString() == nationality)
                 {
-                    NationalitiesListBox.Items.Add(nationality);
+                    alreadyAdded = true;
+                    break;
                 }
+            }
+
+            if (!alreadyAdded)
+            {
+                NationalitiesListBox.Items.Add(nationality);
             }
         }
 
@@ -216,11 +261,45 @@ namespace Foci_csapat_menedzser
             }
         }
 
+        private bool ContainsDigits(string text)
+        {
+            foreach (char c in text)
+            {
+                if (char.IsDigit(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool ValidateForm()
         {
             if (string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
                 MessageBox.Show("A név megadása kötelező!");
+                NameTextBox.Focus();
+                return false;
+            }
+
+            bool containsSpecialChar = false;
+            
+            string specialChars = "!@#$%^&*()_+=[]{};:<>|./?,\"";
+            
+            for (int i = 0; i < NameTextBox.Text.Length; i++)
+            {
+                char ch = NameTextBox.Text[i];
+                if (specialChars.Contains(ch))
+                {
+                    containsSpecialChar = true;
+                    break;
+                }
+            }
+
+            string name = NameTextBox.Text.Trim();
+            if (ContainsDigits(name) || containsSpecialChar)
+            {
+                MessageBox.Show("A név nem tartalmazhat számot vagy speciális karaktert!");
                 NameTextBox.Focus();
                 return false;
             }
@@ -233,9 +312,37 @@ namespace Foci_csapat_menedzser
                 return false;
             }
 
+            if (EditedPlayer.JerseyNumber != int.Parse(JerseyNumberTextBox.Text))
+            { 
+                foreach (var player in mainWindow.players)
+                {
+                    if (player.JerseyNumber == int.Parse(JerseyNumberTextBox.Text))
+                    {
+                        MessageBox.Show($"A {player.JerseyNumber} mezszám már foglalt!");
+                        JerseyNumberTextBox.Focus();
+                        return false;
+                    }
+                }
+            }
+
             if (BirthDatePicker.SelectedDate == null)
             {
                 MessageBox.Show("A születési dátum megadása kötelező!");
+                BirthDatePicker.Focus();
+                return false;
+            }
+
+            if (BirthDatePicker.SelectedDate > DateTime.Now)
+            {
+                MessageBox.Show("A születési dátum nem lehet jövőbeli!");
+                BirthDatePicker.Focus();
+                return false;
+            }
+
+            DateTime minBirthDate = DateTime.Now.AddYears(-15);
+            if (BirthDatePicker.SelectedDate > minBirthDate)
+            {
+                MessageBox.Show("A játékosnak legalább 15 évesnek kell lennie!");
                 BirthDatePicker.Focus();
                 return false;
             }
@@ -255,7 +362,7 @@ namespace Foci_csapat_menedzser
                 return false;
             }
 
-            if (LeftFootRadio.IsChecked != true && RightFootRadio.IsChecked != true)
+            if (LeftFootRadio.IsChecked == false && RightFootRadio.IsChecked == false)
             {
                 MessageBox.Show("Az erősebb láb kiválasztása kötelező!");
                 return false;
@@ -291,7 +398,7 @@ namespace Foci_csapat_menedzser
             {
                 if (string.IsNullOrWhiteSpace(UnavailableReasonTextBox.Text))
                 {
-                    MessageBox.Show("Az elérhetetlenség okának megadása kötelező!");
+                    MessageBox.Show("Az el nem érhetőség okának megadása kötelező!");
                     UnavailableReasonTextBox.Focus();
                     return false;
                 }
@@ -302,6 +409,14 @@ namespace Foci_csapat_menedzser
                     ReturnDatePicker.Focus();
                     return false;
                 }
+
+                if (ReturnDatePicker.SelectedDate < DateTime.Now)
+                {
+                    MessageBox.Show("A játékos már elérhető!");
+                    IsAvailableCheckBox.IsChecked = true;
+                    return false;
+                }
+
             }
 
             return true;
@@ -343,29 +458,7 @@ namespace Foci_csapat_menedzser
                 EditedPlayer.JoinedTeam = JoinedTeamPicker.SelectedDate.Value;
                 EditedPlayer.ContractEnd = ContractEndPicker.SelectedDate.Value;
 
-                if (EditedPlayer.ContractEnd < DateTime.Now)
-                {
-                    EditedPlayer.IsAvailable = false;
-                    if (string.IsNullOrEmpty(EditedPlayer.UnavailableReason))
-                    {
-                        EditedPlayer.UnavailableReason = "Lejárt szerződés";
-                    }
-                }
-                else
-                {
-                    EditedPlayer.IsAvailable = IsAvailableCheckBox.IsChecked == true;
-                }
-
-                if (EditedPlayer.IsAvailable)
-                {
-                    EditedPlayer.UnavailableReason = null;
-                    EditedPlayer.ReturnDate = null;
-                }
-                else
-                {
-                    EditedPlayer.UnavailableReason = UnavailableReasonTextBox.Text.Trim();
-                    EditedPlayer.ReturnDate = ReturnDatePicker.SelectedDate.Value;
-                }
+                UpdatePlayerAvailability();
 
                 DialogResult = true;
                 Close();
@@ -376,11 +469,38 @@ namespace Foci_csapat_menedzser
             }
         }
 
+        private void UpdatePlayerAvailability()
+        {
+            if (EditedPlayer.ContractEnd < DateTime.Now)
+            {
+                EditedPlayer.IsAvailable = false;
+
+                if (string.IsNullOrEmpty(EditedPlayer.UnavailableReason))
+                {
+                    EditedPlayer.UnavailableReason = "Lejárt szerződés";
+                }
+            }
+            else
+            {
+                EditedPlayer.IsAvailable = IsAvailableCheckBox.IsChecked == true;
+            }
+
+            if (EditedPlayer.IsAvailable)
+            {
+                EditedPlayer.UnavailableReason = null;
+                EditedPlayer.ReturnDate = null;
+            }
+            else
+            {
+                EditedPlayer.UnavailableReason = UnavailableReasonTextBox.Text.Trim();
+                EditedPlayer.ReturnDate = ReturnDatePicker.SelectedDate.Value;
+            }
+        }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
         }
-        //TODO exceptionök hozzáadása/kezelése(születési év, piaci érték, név[szám, vessző], egyező mezszám)
     }
 }
