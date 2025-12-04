@@ -371,11 +371,6 @@ namespace Foci_csapat_menedzser
 
                 string jsonPath = Path.Combine(projectPath, JsonFile);
 
-
-                MessageBox.Show($"most: {currentPath}\nprojekt: {projectPath}\njson: {jsonPath}");
-
-
-
                 using (StreamWriter sw = new StreamWriter(jsonPath))
                 {
                     sw.WriteLine("[");
@@ -387,7 +382,6 @@ namespace Foci_csapat_menedzser
                         sw.WriteLine("  {");
                         sw.WriteLine($"    \"Name\": \"{player.Name}\",");
                         sw.WriteLine($"    \"BirthDate\": \"{player.BirthDate.Year:D4}-{player.BirthDate.Month:D2}-{player.BirthDate.Day:D2}\",");
-
                         sw.Write("    \"Nationalities\": [");
                         if (player.Nationalities != null && player.Nationalities.Count > 0)
                         {
@@ -454,7 +448,6 @@ namespace Foci_csapat_menedzser
                     sw.WriteLine("]");
                 }
 
-                MessageBox.Show("Mentés");
             }
             catch (Exception ex)
             {

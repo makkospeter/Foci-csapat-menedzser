@@ -115,26 +115,6 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                        <GroupBox Header="Szerződés" FontWeight="SemiBold" Margin="0,0,0,15">
-                            <StackPanel Margin="10">
-                                <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Csatlakozás:" FontWeight="SemiBold" Width="120"/>
-                                    <TextBlock x:Name="JoinedTeamText"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Szerződés vége:" FontWeight="SemiBold" Width="120"/>
-                                    <TextBlock x:Name="ContractEndText"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Státusz:" FontWeight="SemiBold" Width="120"/>
-                                    <TextBlock x:Name="ContractStatusText"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,5">
-                                    <TextBlock Text="Hátralévő idő:" FontWeight="SemiBold" Width="120"/>
-                                    <TextBlock x:Name="ContractRemainingText"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </GroupBox>
 
                         <GroupBox Header="Személyes Adatok" FontWeight="SemiBold">
                             <StackPanel Margin="10">
@@ -156,6 +136,28 @@
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
+
+                        <GroupBox Header="Szerződés" FontWeight="SemiBold" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Csatlakozás:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="JoinedTeamText"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Szerződés vége:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="ContractEndText"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Státusz:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="ContractStatusText"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Hátralévő idő:" FontWeight="SemiBold" Width="120"/>
+                                    <TextBlock x:Name="ContractRemainingText"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
