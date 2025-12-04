@@ -206,7 +206,7 @@ namespace Foci_csapat_menedzser
                         }
                     }
                 }
-                else if (filter == "Csak sérültek")
+                else if (filter == "Csak nem elérhetők")
                 {
                     foreach (var player in players)
                     {

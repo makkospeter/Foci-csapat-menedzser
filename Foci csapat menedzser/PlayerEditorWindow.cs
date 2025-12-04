@@ -284,7 +284,7 @@ namespace Foci_csapat_menedzser
 
             bool containsSpecialChar = false;
             
-            string specialChars = "!@#$%^&*()_+=[]{};:<>|./?,\"";
+            string specialChars = "!@#$%^&*()_+=[]{};:<>|/?,\"";
             
             for (int i = 0; i < NameTextBox.Text.Length; i++)
             {

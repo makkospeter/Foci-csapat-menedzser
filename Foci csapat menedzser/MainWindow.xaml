@@ -35,7 +35,7 @@
                 <ComboBox x:Name="FilterComboBox" SelectionChanged="FilterComboBox_SelectionChanged">
                     <ComboBoxItem Content="Összes játékos" IsSelected="True"/>
                     <ComboBoxItem Content="Csak elérhetők"/>
-                    <ComboBoxItem Content="Csak sérültek"/>
+                    <ComboBoxItem Content="Csak nem elérhetők"/>
                     <ComboBoxItem Content="Lejárt szerződések"/>
                 </ComboBox>
             </StackPanel>
@@ -83,7 +83,7 @@
                         <StackPanel Grid.Column="0">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock x:Name="PlayerNameText" FontSize="24" FontWeight="Bold"/>
-                                <Image x:Name="PlayerFlagImage" Width="32" Height="24" Margin="5,0,0,0"/>
+                                <Image x:Name="PlayerFlagImage" Width="32" Height="24" Margin="10,0,0,0"/>
                             </StackPanel>
                             <TextBlock x:Name="PlayerPositionText" FontSize="16" Foreground="#6C757D" Margin="0,0,0,10"/>
 
