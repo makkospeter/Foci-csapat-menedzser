@@ -394,6 +394,13 @@ namespace Foci_csapat_menedzser
                 return false;
             }
 
+            if (JoinedTeamPicker.SelectedDate > DateTime.Now)
+            {
+                MessageBox.Show("A csatlakozás dátuma nem lehet jövőbeli!");
+                JoinedTeamPicker.Focus();
+                return false;
+            }
+
             if (IsAvailableCheckBox.IsChecked == false)
             {
                 if (string.IsNullOrWhiteSpace(UnavailableReasonTextBox.Text))
