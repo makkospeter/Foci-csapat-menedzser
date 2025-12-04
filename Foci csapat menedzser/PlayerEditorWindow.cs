@@ -63,7 +63,7 @@ namespace Foci_csapat_menedzser
                 ContractEnd = player.ContractEnd
             };
 
-            Title = "Játékos Szerkesztése";
+            Title = $"{player.Name} Szerkesztése";
         }
 
         private void NewPlayer()

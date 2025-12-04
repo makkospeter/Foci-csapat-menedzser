@@ -46,18 +46,6 @@ namespace Foci_csapat_menedzser
                         {
                             players = playerArray.ToList();
 
-                            foreach (var player in players)
-                            {
-                                if (player.ContractEnd < DateTime.Now)
-                                {
-                                    player.IsAvailable = false;
-                                    if (string.IsNullOrEmpty(player.UnavailableReason))
-                                    {
-                                        player.UnavailableReason = "Lejárt szerződés";
-                                    }
-                                }
-                            }
-
                             filteredPlayers = players.ToList();
 
                             if (PlayerList != null)
@@ -107,7 +95,13 @@ namespace Foci_csapat_menedzser
             AgeText.Text = $"{player.Age} éves";
             MarketValueText.Text = $"{player.MarketValue:N0} €";
 
-            if (player.IsAvailable)
+            if (player.ContractEnd < DateTime.Now)
+            {
+                AvailabilityStatusText.Text = "⚠️ Lejárt szerződés";
+                AvailabilityStatusText.Foreground = System.Windows.Media.Brushes.Orange;
+                ReturnDateText.Text = "";
+            }
+            else if (player.IsAvailable)
             {
                 AvailabilityStatusText.Text = "✅ Elérhető";
                 AvailabilityStatusText.Foreground = System.Windows.Media.Brushes.Green;
