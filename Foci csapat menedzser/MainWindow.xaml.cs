@@ -363,99 +363,105 @@ namespace Foci_csapat_menedzser
 
         private void SaveAllChanges()
         {
-
-
-
-            using (StreamWriter sw = new StreamWriter("/players.json"))
+            try
             {
-                sw.WriteLine("[");
+                string currentPath = Directory.GetCurrentDirectory();
 
-                for (int i = 0; i < players.Count; i++)
+                string projectPath = Path.GetFullPath(Path.Combine(currentPath, "..", "..", ".."));
+
+                string jsonPath = Path.Combine(projectPath, JsonFile);
+
+
+                MessageBox.Show($"most: {currentPath}\nprojekt: {projectPath}\njson: {jsonPath}");
+
+
+
+                using (StreamWriter sw = new StreamWriter(jsonPath))
                 {
-                    Player player = players[i];
+                    sw.WriteLine("[");
 
-                    sw.WriteLine("  {");
-                    sw.WriteLine($"    \"Name\": \"{player.Name}\",");
-                    sw.WriteLine($"    \"BirthDate\": \"{player.BirthDate.Year:D4}-{player.BirthDate.Month:D2}-{player.BirthDate.Day:D2}\",");
-
-                    sw.Write("    \"Nationalities\": [");
-                    if (player.Nationalities != null && player.Nationalities.Count > 0)
+                    for (int i = 0; i < players.Count; i++)
                     {
-                        for (int n = 0; n < player.Nationalities.Count; n++)
+                        Player player = players[i];
+
+                        sw.WriteLine("  {");
+                        sw.WriteLine($"    \"Name\": \"{player.Name}\",");
+                        sw.WriteLine($"    \"BirthDate\": \"{player.BirthDate.Year:D4}-{player.BirthDate.Month:D2}-{player.BirthDate.Day:D2}\",");
+
+                        sw.Write("    \"Nationalities\": [");
+                        if (player.Nationalities != null && player.Nationalities.Count > 0)
                         {
-                            sw.Write($" \"{player.Nationalities[n]}\"");
-                            if (n < player.Nationalities.Count - 1)
+                            for (int n = 0; n < player.Nationalities.Count; n++)
                             {
-                                sw.Write(",");
+                                sw.Write($" \"{player.Nationalities[n]}\"");
+                                if (n < player.Nationalities.Count - 1)
+                                {
+                                    sw.Write(",");
+                                }
                             }
                         }
+                        sw.WriteLine(" ],");
+
+                        sw.WriteLine($"    \"MarketValue\": {player.MarketValue},");
+
+                        if (player.IsAvailable)
+                        {
+                            sw.WriteLine("    \"IsAvailable\": true,");
+                        }
+                        else
+                        {
+                            sw.WriteLine("    \"IsAvailable\": false,");
+                        }
+
+                        if (player.UnavailableReason == null)
+                        {
+                            sw.WriteLine("    \"UnavailableReason\": null,");
+                        }
+                        else
+                        {
+                            sw.WriteLine($"    \"UnavailableReason\": \"{player.UnavailableReason}\",");
+                        }
+
+                        if (player.ReturnDate == null)
+                        {
+                            sw.WriteLine("    \"ReturnDate\": null,");
+
+                        }
+                        else
+                        {
+                            DateTime returnDate = player.ReturnDate.Value;
+                            sw.WriteLine($"    \"ReturnDate\": \"{returnDate.Year:D4}-{returnDate.Month:D2}-{returnDate.Day:D2}\",");
+                        }
+
+                        sw.WriteLine($"    \"JerseyNumber\": {player.JerseyNumber},");
+                        sw.WriteLine($"    \"Height\": {player.Height},");
+                        sw.WriteLine($"    \"PreferredFoot\": \"{player.PreferredFoot}\",");
+                        sw.WriteLine($"    \"Position\": \"{player.Position}\",");
+                        sw.WriteLine($"    \"JoinedTeam\": \"{player.JoinedTeam.Year:D4}-{player.JoinedTeam.Month:D2}-{player.JoinedTeam.Day:D2}\",");
+                        sw.WriteLine($"    \"ContractEnd\": \"{player.ContractEnd.Year:D4}-{player.ContractEnd.Month:D2}-{player.ContractEnd.Day:D2}\"");
+
+                        sw.Write("  }");
+                        if (i < players.Count - 1)
+                        {
+                            sw.WriteLine(",");
+                        }
+                        else
+                        {
+                            sw.WriteLine();
+                        }
                     }
-                    sw.WriteLine(" ],");
 
-                    sw.WriteLine($"    \"MarketValue\": {player.MarketValue},");
-
-
-
-
-                    if (player.IsAvailable)
-                    {
-                        sw.WriteLine("    \"IsAvailable\": true,");
-                    }
-                    else
-                    {
-                        sw.WriteLine("    \"IsAvailable\": false,");
-                    }
-
-                    if (player.UnavailableReason == null)
-                    {
-                        sw.WriteLine("    \"UnavailableReason\": null,");
-                    }
-                    else
-                    {
-                        sw.WriteLine($"    \"UnavailableReason\": \"{player.UnavailableReason}\",");
-                    }
-
-                    if (player.ReturnDate == null)
-                    {
-                        sw.WriteLine("    \"ReturnDate\": null,");
-
-                    }
-                    else
-                    {
-                        DateTime returnDate = player.ReturnDate.Value;
-                        sw.WriteLine($"    \"ReturnDate\": \"{returnDate.Year:D4}-{returnDate.Month:D2}-{returnDate.Day:D2}\",");
-                    }
-
-
-
-
-                    sw.WriteLine($"    \"JerseyNumber\": {player.JerseyNumber},");
-                    sw.WriteLine($"    \"Height\": {player.Height},");
-                    sw.WriteLine($"    \"PreferredFoot\": \"{player.PreferredFoot}\",");
-                    sw.WriteLine($"    \"Position\": \"{player.Position}\",");
-                    sw.WriteLine($"    \"JoinedTeam\": \"{player.JoinedTeam.Year:D4}-{player.JoinedTeam.Month:D2}-{player.JoinedTeam.Day:D2}\",");
-                    sw.WriteLine($"    \"ContractEnd\": \"{player.ContractEnd.Year:D4}-{player.ContractEnd.Month:D2}-{player.ContractEnd.Day:D2}\"");
-
-                    sw.Write("  }");
-                    
-                    
-                    if (i < players.Count - 1)
-                    {
-                        sw.WriteLine(",");
-                    }
-                    else
-                    {
-                        sw.WriteLine();
-                    }
+                    sw.WriteLine("]");
                 }
 
-                sw.WriteLine("]");
+                MessageBox.Show("Mentés");
             }
-
-
-
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a mentéskor: " + ex.Message);
+            }
         }
+
+
     }
 }
