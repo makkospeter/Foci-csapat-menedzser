@@ -14,6 +14,48 @@
             <Setter Property="Margin" Value="4"/>
             <Setter Property="Padding" Value="12"/>
         </Style>
+
+        <Style x:Key="AddPlayerButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Background" Value="#28A745"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style x:Key="StatusBadgeStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+
+        <Style x:Key="JerseyBadgeStyle" TargetType="Border" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="#6495ED"/>
+        </Style>
+
+        <Style x:Key="AgeBadgeStyle" TargetType="Border" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="#E34234"/>
+        </Style>
+
+        <Style x:Key="MarketValueBadgeStyle" TargetType="Border" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="#228B22"/>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="EditButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#007BFF"/>
+        </Style>
+
+        <Style x:Key="DeleteButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#DC3545"/>
+        </Style>
     </Window.Resources>
 
     <Grid Margin="10">
@@ -26,8 +68,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                 <TextBlock Text="Játékos Keret" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
                 <Button x:Name="AddPlayerButton" Content="+" ToolTip="Új játékos" 
-                        Click="AddPlayerButton_Click" Width="30" Height="30" Margin="10,0,0,0"
-                        Background="#28A745" Foreground="White" FontWeight="Bold" FontSize="16"/>
+                        Click="AddPlayerButton_Click" Style="{StaticResource AddPlayerButtonStyle}"/>
             </StackPanel>
 
             <StackPanel Margin="0,0,0,10">
@@ -88,13 +129,13 @@
                             <TextBlock x:Name="PlayerPositionText" FontSize="16" Foreground="#6C757D" Margin="0,0,0,10"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                <Border Background="#007BFF" CornerRadius="4" Padding="8,4">
+                                <Border Style="{StaticResource JerseyBadgeStyle}">
                                     <TextBlock x:Name="JerseyNumberText" Foreground="White" FontWeight="Bold"/>
                                 </Border>
-                                <Border Background="#28A745" CornerRadius="4" Padding="8,4" Margin="10,0,0,0">
+                                <Border Style="{StaticResource AgeBadgeStyle}" Margin="10,0,0,0">
                                     <TextBlock x:Name="AgeText" Foreground="White"/>
                                 </Border>
-                                <Border Background="#FD7E14" CornerRadius="4" Padding="8,4" Margin="10,0,0,0">
+                                <Border Style="{StaticResource MarketValueBadgeStyle}" Margin="10,0,0,0">
                                     <TextBlock x:Name="MarketValueText" Foreground="White" FontWeight="SemiBold"/>
                                 </Border>
                             </StackPanel>
@@ -187,9 +228,9 @@
                 <StackPanel Margin="10">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="EditPlayerButton" Content="Szerkesztés" Click="EditPlayerButton_Click" 
-                                Width="100" Height="30" Margin="5" Background="#007BFF" Foreground="White"/>
+                                Style="{StaticResource EditButtonStyle}"/>
                         <Button x:Name="DeletePlayerButton" Content="Törlés" Click="DeletePlayerButton_Click" 
-                                Width="100" Height="30" Margin="5" Background="#DC3545" Foreground="White"/>
+                                Style="{StaticResource DeleteButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
